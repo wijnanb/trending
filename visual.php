@@ -44,30 +44,21 @@
   {
 
   }
-
+  
   $timeframe = 48 * 2; // 2 dagen
   $now = strtotime( date("Y-m-d H:") . floor(date("i")/30)*30 );
 
-  $prev_bg = -1;
   $chronological = array();
   for ( $i=0; $i<$timeframe; $i++ )
   {
     $timestamp = $now - ( $i * (30*60) );
     $item = new StdClass();
     $item->timestamp = $timestamp;
+    $item->bg = $i % 4;
     
-    /*
-    do {
-      $bg = rand(0,3);
-    } while ( $bg == $prev_bg );
-    */
+    // find items
     
-     $bg = ($prev_bg+1) % 4;
-    
-    $item->bg = $bg;
-    $prev_bg = $bg;
-    
-    
+
     $chronological[] = $item;
   }
 
@@ -94,21 +85,23 @@
     <script type="text/javascript" src="jquery-1.5.min.js"></script>
     <script type="text/javascript" src="iscroll-min.js"></script>
 		<script type="application/javascript" src="add2home.js"></script>
-    <script type="text/javascript" src="trending.js"></script>
+    <script type="text/javascript" src="visual.js"></script>
   </head>
   <body id="visual" onload="on_load();" onorientationchange="update_orientation();">
     <div id="preloader"><div class="message">loading</div></div>
     <div id="main">
       <div class="heading">
-        <div class="powered">powered by Foursquare</div>
+        <div class="powered">according to Foursquare</div>
         <h1><span class="bold">Trending in Ghent</span></h1>
       </div>
-      <div id="infographic">
-        <? foreach( $chronological as $item ) { ?>
-          <div class="item bg<?=$item->bg?>">
-            <div class="timestamp"><? echo date( "H:i", $item->timestamp); ?></div>
-          </div>
-        <? } ?>
+      <div id="scrollwrapper">
+        <div id="infographic">
+          <? $i=0; foreach( $chronological as $item ) { ?>
+            <div class="item bg<?=$item->bg?>" id="item-<?=$i?>">
+              <div class="timestamp"><? echo date( "H:i", $item->timestamp); ?></div>
+            </div>
+          <? $i++; } ?>
+        </div>
       </div>
     </div>
   </body>
