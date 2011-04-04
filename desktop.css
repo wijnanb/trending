@@ -1,0 +1,20 @@
+#main{
+  max-width: 1000px;
+}
+
+.photo_slideshow .scrollwrapper {
+  width: 1195px;
+ 
+  margin: 0px auto;
+}
+
+.photo_slideshow .scroller li {  
+  width: 1195px;
+} 
+
+.photo_slideshow .scroller li .wrap {  
+  width: 800px;  
+  margin: 50px auto;
+} 
+
+

@@ -1,0 +1,17 @@
+#main{
+  width: 768px;
+  height: 100%; 
+}
+
+.photo_slideshow .scroller li {  
+  width: 768px;
+}
+
+.photo_slideshow .scroller li .wrap {
+  position: relative;
+  top: 50%;
+}
+
+#slideshow-button {
+  top: 512px;
+}

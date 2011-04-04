@@ -1,0 +1,13 @@
+#main{
+  width: 1024px;
+  height: 100%;
+}
+
+.photo_slideshow .scroller li {  
+  width: 1024px;
+}
+
+.photo_slideshow .scroller li .wrap {
+  position: relative;
+  top: 50%;
+}
