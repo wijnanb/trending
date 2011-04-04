@@ -1,9 +1,9 @@
 <?php
   require_once('api_keys.inc.php');
-  
+
   $db = mysql_connect($db_server, $db_user, $db_password);
   mysql_select_db($db_database, $db);
-  
+
   $sql = "SELECT t.time_in, l.foursquare_id, l.name, s.herenow, l.location, l.category
           FROM ".$db_prefix."stats s
           JOIN ".$db_prefix."locations l ON l.id=s.location_id
@@ -15,21 +15,27 @@
   if ( mysql_error() ) echo mysql_error() . "<br />";
 
   $stats = array();
-  if ( mysql_num_rows($result) != 0 ) 
+  if ( mysql_num_rows($result) != 0 )
   {
     $last_stamp = "";
     $s;
-    
+
     while( $row = mysql_fetch_object($result) )
     {
       if ( $last_stamp != $row->time_in )
       {
-         if ( isset($s) ) $stats[] = $s; 
+         if ( isset($s) ) $stats[] = $s;
          $s = new StdClass();
          $s->time_in = $row->time_in;
          $s->locations = array();
          $last_stamp = $row->time_in;
       }
+
+      $loc = json_decode($row->location);
+      $row->address = $loc->address;
+      $row->lat = $loc->lat;
+      $row->lng = $loc->lng;
+
       $s->locations[] = $row;
     }
     $stats[] = $s;
@@ -48,19 +54,19 @@
     <title>Trending in Ghent</title>
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0,maximum-scale=1.0">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" /> 
-    <meta name="apple-mobile-web-app-capable" content="yes" /> 
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="apple-touch-startup-image" href="images/splash.png" />
     <link rel="apple-touch-icon" href="images/app-icon.png" />
-    <link rel="shortcut icon" href="/> 
+    <link rel="shortcut icon" href="/>
     <link rel="icon" type="image/png" href=""/>
     <link href="reset.css" rel="stylesheet" type="text/css" />
     <link href="add2home.css" rel="stylesheet" type="text/css" />
     <link href="style.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" media="all and (max-device-width: 480px)" href="phone.css"> 
-    <link rel="stylesheet" media="all and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" href="portrait.css"> 
-    <link rel="stylesheet" media="all and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" href="landscape.css"> 
-    <link rel="stylesheet" media="all and (min-device-width: 1025px)" href="desktop.css"> 
+    <link rel="stylesheet" media="all and (max-device-width: 480px)" href="phone.css">
+    <link rel="stylesheet" media="all and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" href="portrait.css">
+    <link rel="stylesheet" media="all and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" href="landscape.css">
+    <link rel="stylesheet" media="all and (min-device-width: 1025px)" href="desktop.css">
     <script type="text/javascript" src="jquery-1.5.min.js"></script>
     <script type="text/javascript" src="iscroll-min.js"></script>
 		<script type="application/javascript" src="add2home.js"></script>
@@ -83,14 +89,16 @@
               <? foreach( $s->locations as $l ) { ?>
                 <div class="location">
                   <div class="category"><img class="icon" src="<?= $l->category ?>" /></div>
-                  <div class="name"><?= $l->name ?></div>
-                  <div class="herenow"><?= $l->herenow ?></div>
+                  <div class="place">
+										<div class="name"><?= $l->name ?> <span class="herenow">(<?= $l->herenow ?> people)</span></div>
+										<div class="address"><a href="http://maps.google.be/?ie=UTF8&hl=nl&geocode=&q=<?= $l->address ?>+Gent&ll=<?= $l->lat ?>,<?= $l->lng ?>&hnear=Gent&spn=0.004559,0.011362&z=17" target="_blank"><?= $l->address ?></a></div>
+									</div>
                 </div>
               <? } ?>
             </div>
           </div>
         <? } ?>
       </div>
-    </div>  
+    </div>
   </body>
 </html>

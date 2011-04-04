@@ -44,7 +44,7 @@ body {
 
 #main {
   width: 80%;
-  height: 2500px;
+  height: 3500px;
   margin: 50px auto;
   background-color: white;
   -webkit-border-radius: 15px;
@@ -106,16 +106,32 @@ h1 {
   padding: 10px 0px;
 }
 
-.category, .name, .herenow {
+.category, .place {
   float: left;
   margin-right: 20px;
   padding: 10px;
+}
+
+.address {
+	padding-top: 4px;
+}
+
+.name {
+	font-weight: bold;
+}
+
+.herenow {
+	font-weight: normal;
 }
 
 
 .bold {
   font-size: 2em;
   font-weight: bold;
+}
+
+.clear {
+	clear: both;
 }
 
 

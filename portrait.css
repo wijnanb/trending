@@ -1,6 +1,9 @@
 #main{
-  width: 768px;
-  height: 100%; 
+  width: 700px;
+}
+
+.place{
+	width: 260px;
 }
 
 .photo_slideshow .scroller li {  
