@@ -1,0 +1,16 @@
+h1 {
+  padding: 10px 0px 10px 15px;
+  font-size: 1em;
+  color: white;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.heading .powered {
+  float: right;
+  padding: 16px 10px 5px 0px;
+  color: white;
+  font-size: 0.5em;
+}
