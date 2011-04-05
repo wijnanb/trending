@@ -52,7 +52,7 @@ body {
   top: 0px;
   left: 3%;
   right: 3%;
-  z-index: 2;
+  z-index: 3;
   background-color: black;
   -webkit-border-radius: 0px 0px 15px 15px;
   -moz-border-radius: 0px 0px 15px 15px;
@@ -132,6 +132,47 @@ h1 {
 .bg2 { background-color: #D7D7D7; }
 .bg3 { background-color: #EAECEE; }
 
+
+
+.tail {
+  position: absolute;
+  top: 5px;
+  width: 50px;
+  height: 30px;
+  background-color: #D9430D;
+  -moz-border-radius: 10px 0px 0px 10px;
+  border-radius: 10px 0px 0px 10px;
+}
+
+#stats {
+  width: 2040px;
+  position: absolute;
+  top: 0px;
+  z-index: 1;
+}
+
+.stat {
+  position: absolute;
+  right: 100px;
+  top: 40px;
+}
+
+.head {
+  position: relative;
+  top: -5px;
+  left: 5px;
+  width: 50px;
+  height: 50px;
+  background-color: #D9430D;
+  z-index: 5;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  font-size: 0.7em;
+  color: white;
+  text-align: right;
+  overflow: visible;
+  line-height: 1.5em;
+}
 
 
 
